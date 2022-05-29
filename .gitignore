@@ -1,0 +1,3 @@
+src/micro-services/users/node_modules
+src/micro-services/notes/node_modules
+src/gateway/node_modules
