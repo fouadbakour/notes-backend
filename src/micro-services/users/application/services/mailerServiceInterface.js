@@ -1,4 +1,4 @@
-const nodeMailerServiceInterface = (service) => {
+const mailerServiceInterface = (service) => {
   const sendWelcomeEmail = (targetEmail) => {
     service.sendWelcomeEmail(targetEmail);
   };
@@ -9,5 +9,5 @@ const nodeMailerServiceInterface = (service) => {
 };
 
 module.exports = {
-  nodeMailerServiceInterface,
+  mailerServiceInterface,
 };

@@ -5,8 +5,8 @@ const { authServiceInterface } = require('../../../application/services/authServ
 const { authServiceImpl } = require('../../services/authServiceImpl');
 const { authMiddleware } = require('../middlewares/authMiddleware');
 
-const { nodeMailerServiceInterface } = require('../../../application/services/nodeMailerServiceInterface');
-const { nodeMailerServiceImpl } = require('../../services/nodeMailerServiceImpl');
+const { mailerServiceInterface } = require('../../../application/services/mailerServiceInterface');
+const { mailerServiceImpl } = require('../../services/mailerServiceImpl');
 
 const userRouter = (express) => {
   const router = express.Router();
@@ -17,8 +17,8 @@ const userRouter = (express) => {
     userDbRepositoryMongoDBImpl,
     authServiceInterface,
     authServiceImpl,
-    nodeMailerServiceInterface,
-    nodeMailerServiceImpl,
+    mailerServiceInterface,
+    mailerServiceImpl,
   );
 
   // GET endpoints

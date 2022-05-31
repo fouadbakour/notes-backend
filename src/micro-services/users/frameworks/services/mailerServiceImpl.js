@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const { NODE_MAILER_USER, NODE_MAILER_PASSWORD } = require('../../config/nodemailerConfig');
 
-const nodeMailerServiceImpl = () => {
+const mailerServiceImpl = () => {
   const transport = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -24,5 +24,5 @@ const nodeMailerServiceImpl = () => {
 };
 
 module.exports = {
-  nodeMailerServiceImpl,
+  mailerServiceImpl,
 };

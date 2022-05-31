@@ -8,12 +8,12 @@ const userController = (
   userDbRepositoryImpl,
   authServiceInterface,
   authServiceImpl,
-  nodeMailerServiceInterface,
-  nodeMailerServiceImpl,
+  mailerServiceInterface,
+  mailerServiceImpl,
 ) => {
   const dbRepository = userDbRepositoryInterface(userDbRepositoryImpl());
   const authService = authServiceInterface(authServiceImpl());
-  const nodeMailerService = nodeMailerServiceInterface(nodeMailerServiceImpl());
+  const mailerService = mailerServiceInterface(mailerServiceImpl());
 
   const fetchUsersByProperty = (req, res, next) => {
     const params = {};
@@ -60,7 +60,7 @@ const userController = (
       createdAt,
       dbRepository,
       authService,
-      nodeMailerService,
+      mailerService,
     )
       .then((user) => res.json(user))
       .catch((error) => next(error));

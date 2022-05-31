@@ -6,7 +6,7 @@ const addUser = (
   createdAt,
   userRepository,
   authService,
-  nodeMailerServiceInterface,
+  mailerServiceInterface,
 ) => {
   // Validate incoming values
   if (!password || !email) {
@@ -28,11 +28,29 @@ const addUser = (
         throw new Error(`User with email: ${email} already exists`);
       }
 
-      // Send welcome email!
-      nodeMailerServiceInterface.sendWelcomeEmail(newUser.getEmail());
-
       // If all the above are fine, query our repository to add it to our DB
-      return userRepository.add(newUser);
+      return userRepository.add(newUser).then((addedUser) => {
+        // Send welcome email!
+        mailerServiceInterface.sendWelcomeEmail(addedUser.email);
+
+        // Build payload to generate a token
+        const payloadForToken = {
+          user: {
+            id: addedUser.id,
+          },
+        };
+
+        // Build the final payload
+        const payload = {
+          id: addedUser.id,
+          email: addedUser.email,
+          token: authService.generateToken(payloadForToken),
+        };
+
+        return payload;
+      }).catch(() => {
+        throw new Error('Unable to add new user');
+      });
     });
 };
 
