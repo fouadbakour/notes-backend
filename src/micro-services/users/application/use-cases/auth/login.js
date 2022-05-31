@@ -33,9 +33,7 @@ const login = (email, password, userRepository, authService) => {
     // Build the final payload
     const payload = {
       id: targetUser.id,
-      username: targetUser.username,
       email: targetUser.email,
-      role: targetUser.role,
       token: authService.generateToken(payloadForToken),
     };
 

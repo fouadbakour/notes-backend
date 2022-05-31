@@ -25,10 +25,8 @@ const userDbRepositoryMongoDBImpl = () => {
   // mongoose query function to add new record
   const add = (userEntity) => {
     const newUser = new UserModel({
-      username: userEntity.getUserName(),
       password: userEntity.getPassword(),
       email: userEntity.getEmail(),
-      role: userEntity.getRole(),
       createdAt: new Date(),
     });
 

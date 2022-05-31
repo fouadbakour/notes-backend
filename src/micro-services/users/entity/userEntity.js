@@ -1,10 +1,9 @@
-const user = (username, password, email, role, createdAt) => ({
-  getUserName: () => username,
+const user = (password, email, createdAt) => ({
   getPassword: () => password,
   getEmail: () => email,
-  getRole: () => role,
   getCreatedAt: () => createdAt,
 });
+
 module.exports = {
   user,
 };

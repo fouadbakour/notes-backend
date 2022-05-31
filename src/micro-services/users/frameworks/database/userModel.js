@@ -6,10 +6,6 @@ const collectionName = 'User';
 // eslint-disable-next-line prefer-destructuring
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
-  username: {
-    type: String,
-    unique: true,
-  },
   password: {
     type: String,
   },
@@ -18,10 +14,6 @@ const UserSchema = new Schema({
     required: true,
     unique: true,
     lowercase: true,
-  },
-  role: {
-    type: String,
-    default: 'test_user',
   },
   createdAt: Date,
 });

@@ -49,13 +49,11 @@ const userController = (
 
   const addNewUser = (req, res, next) => {
     const {
-      username, password, email, role, createdAt,
+      password, email, createdAt,
     } = req.body;
     addUser(
-      username,
       password,
       email,
-      role,
       createdAt,
       dbRepository,
       authService,
