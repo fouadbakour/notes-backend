@@ -1,10 +1,10 @@
 const findByProperty = (params, repository) => repository.findByProperty(params)
-  .then((arrau) => {
-    // Map users
-    const mapped = arrau.map((record) => {
+  .then((array) => {
+    // Map
+    const mapped = array.map((record) => {
       const payload = {
         id: record.id,
-        email: record.email,
+        title: record.title,
         createdAt: record.createdAt,
       };
       return payload;

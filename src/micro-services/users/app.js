@@ -33,5 +33,5 @@ app.use(errorHandlingMiddleware);
 
 // define a simple route
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to my server.' });
+  res.json({ message: 'Welcome to my users server.' });
 });

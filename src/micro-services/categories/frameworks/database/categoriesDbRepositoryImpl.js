@@ -1,4 +1,4 @@
-const UserModel = require('./userModel');
+const CategoryModel = require('./categoryModel');
 
 // move it to a proper place
 function omit(obj, ...props) {
@@ -7,27 +7,30 @@ function omit(obj, ...props) {
   return result;
 }
 
-const userDbRepositoryImpl = () => {
+const categoriesDbRepositoryImpl = () => {
   // mongoose query function to find a record by a givin property
-  const findByProperty = (params) => UserModel.find(omit(params, 'page', 'perPage'))
+  const findByProperty = (params) => CategoryModel.find(omit(params, 'page', 'perPage'))
     .skip(params.perPage * params.page - params.perPage)
     .limit(params.perPage);
 
   // mongoose query function to count all records
-  const countAll = (params) => UserModel.countDocuments(omit(params, 'page', 'perPage'));
+  const countAll = (params) => CategoryModel.countDocuments(omit(params, 'page', 'perPage'));
 
   // mongoose query function to find record by document ID
-  const findById = (id) => UserModel.findById(id).select('-password');
+  const findById = (id) => CategoryModel.findById(id);
 
   // mongoose query function to find record by document ID and remove it
-  const deleteById = (id) => UserModel.findByIdAndRemove(id);
+  const deleteById = (id) => CategoryModel.findByIdAndRemove(id);
+
+  // mongoose query function to edit a record by document ID
+  const updateById = (id, newTitle) => CategoryModel.findByIdAndUpdate(id, { title: newTitle });
 
   // mongoose query function to add new record
   const add = (entity) => {
-    const newRecord = new UserModel({
-      password: entity.getPassword(),
-      email: entity.getEmail(),
+    const newRecord = new CategoryModel({
+      title: entity.getTitle(),
       createdAt: new Date(),
+      createdBy: entity.getCreatedBy(),
     });
     return newRecord.save();
   };
@@ -38,9 +41,10 @@ const userDbRepositoryImpl = () => {
     findById,
     add,
     deleteById,
+    updateById,
   };
 };
 
 module.exports = {
-  userDbRepositoryImpl,
+  categoriesDbRepositoryImpl,
 };

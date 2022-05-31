@@ -4,7 +4,7 @@ const addUser = (
   password,
   email,
   createdAt,
-  userRepository,
+  repository,
   authServiceInterface,
   mailerServiceInterface,
 ) => {
@@ -21,7 +21,7 @@ const addUser = (
   );
 
   // Validate if the user is already exits in our DB, step 1
-  return userRepository
+  return repository
     .findByProperty({ email })
     .then((userWithEmail) => {
       if (userWithEmail.length) {
@@ -29,7 +29,7 @@ const addUser = (
       }
 
       // If all the above are fine, query our repository to add it to our DB
-      return userRepository.add(newUser).then((addedUser) => {
+      return repository.add(newUser).then((addedUser) => {
         // Send welcome email!
         mailerServiceInterface.sendWelcomeEmail(addedUser.email);
 
@@ -40,16 +40,16 @@ const addUser = (
           },
         };
 
-        // Build the final payload
-        const payload = {
+        // Map
+        const mapped = {
           id: addedUser.id,
           email: addedUser.email,
           token: authServiceInterface.generateToken(payloadForToken),
         };
 
-        return payload;
-      }).catch(() => {
-        throw new Error('Unable to add new user');
+        return mapped;
+      }).catch((err) => {
+        throw new Error(err.message);
       });
     });
 };

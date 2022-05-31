@@ -1,4 +1,4 @@
-const findById = (id, userRepository) => userRepository.findById(id).then((user) => {
+const findById = (id, repository) => repository.findById(id).then((user) => {
   // Build the final payload
   const payload = {
     id: user.id,
