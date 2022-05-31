@@ -1,6 +1,5 @@
 // eslint-disable-next-line max-len
-// TODO: -  check the injected userRepository type, are the userRepository, authService from application or framework ?
-const login = (email, password, userRepository, authService) => {
+const login = (email, password, userRepository, authServiceInterface) => {
   if (!email || !password) {
     const error = new Error('email and password fields cannot be empty');
     error.statusCode = 401;
@@ -16,7 +15,7 @@ const login = (email, password, userRepository, authService) => {
 
     // Validate the target user's password
     const targetUser = user[0];
-    const isMatch = authService.compare(password, targetUser.password);
+    const isMatch = authServiceInterface.compare(password, targetUser.password);
     if (!isMatch) {
       const error = new Error('Invalid email or password');
       error.statusCode = 401;
@@ -34,7 +33,7 @@ const login = (email, password, userRepository, authService) => {
     const payload = {
       id: targetUser.id,
       email: targetUser.email,
-      token: authService.generateToken(payloadForToken),
+      token: authServiceInterface.generateToken(payloadForToken),
     };
 
     // Generate token and return

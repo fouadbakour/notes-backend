@@ -5,7 +5,7 @@ const addUser = (
   email,
   createdAt,
   userRepository,
-  authService,
+  authServiceInterface,
   mailerServiceInterface,
 ) => {
   // Validate incoming values
@@ -15,7 +15,7 @@ const addUser = (
 
   // Prepare new user object based on our entity
   const newUser = user(
-    authService.encryptPassword(password),
+    authServiceInterface.encryptPassword(password),
     email,
     createdAt,
   );
@@ -44,7 +44,7 @@ const addUser = (
         const payload = {
           id: addedUser.id,
           email: addedUser.email,
-          token: authService.generateToken(payloadForToken),
+          token: authServiceInterface.generateToken(payloadForToken),
         };
 
         return payload;
