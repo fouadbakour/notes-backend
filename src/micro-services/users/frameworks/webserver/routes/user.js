@@ -1,6 +1,6 @@
 const { userController } = require('../../../adapters/controllers/userController');
-const { userDbRepositoryInterface } = require('../../../application/repositories/userDbRepository');
-const { userDbRepositoryMongoDBImpl } = require('../../database/userRepositoryMongoDB');
+const { userDbRepositoryInterface } = require('../../../application/repositories/userDbRepositoryInterface');
+const { userDbRepositoryImpl } = require('../../database/userDbRepositoryImpl');
 const { authServiceInterface } = require('../../../application/services/authServiceInterface');
 const { authServiceImpl } = require('../../services/authServiceImpl');
 const { authMiddleware } = require('../middlewares/authMiddleware');
@@ -14,7 +14,7 @@ const userRouter = (express) => {
   // load controller with dependencies
   const controller = userController(
     userDbRepositoryInterface,
-    userDbRepositoryMongoDBImpl,
+    userDbRepositoryImpl,
     authServiceInterface,
     authServiceImpl,
     mailerServiceInterface,

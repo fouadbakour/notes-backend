@@ -11,5 +11,8 @@
     "micro-service"
   ],
   "author": "Fouad Bakkour",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
 }

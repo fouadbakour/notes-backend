@@ -7,7 +7,7 @@ function omit(obj, ...props) {
   return result;
 }
 
-const userDbRepositoryMongoDBImpl = () => {
+const userDbRepositoryImpl = () => {
   // mongoose query function to find a record by a givin property
   const findByProperty = (params) => UserModel.find(omit(params, 'page', 'perPage'))
     .skip(params.perPage * params.page - params.perPage)
@@ -43,5 +43,5 @@ const userDbRepositoryMongoDBImpl = () => {
 };
 
 module.exports = {
-  userDbRepositoryMongoDBImpl,
+  userDbRepositoryImpl,
 };
