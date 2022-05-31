@@ -1,8 +1,8 @@
 const { authController } = require('../../../adapters/controllers/authController');
 const { userDbRepositoryInterface } = require('../../../application/repositories/userDbRepository');
 const { userDbRepositoryMongoDBImpl } = require('../../database/userRepositoryMongoDB');
-const { authServiceInterface } = require('../../../application/services/authService');
-const { authServiceImpl } = require('../../services/authService');
+const { authServiceInterface } = require('../../../application/services/authServiceInterface');
+const { authServiceImpl } = require('../../services/authServiceImpl');
 
 const authRouter = (express) => {
   const router = express.Router();

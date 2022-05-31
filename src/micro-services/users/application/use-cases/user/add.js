@@ -6,6 +6,7 @@ const addUser = (
   createdAt,
   userRepository,
   authService,
+  nodeMailerServiceInterface,
 ) => {
   // Validate incoming values
   if (!password || !email) {
@@ -26,6 +27,10 @@ const addUser = (
       if (userWithEmail.length) {
         throw new Error(`User with email: ${email} already exists`);
       }
+
+      // Send welcome email!
+      nodeMailerServiceInterface.sendWelcomeEmail(newUser.getEmail());
+
       // If all the above are fine, query our repository to add it to our DB
       return userRepository.add(newUser);
     });

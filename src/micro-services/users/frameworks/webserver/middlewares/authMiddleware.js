@@ -1,5 +1,5 @@
-const authServiceImpl = require('../../services/authService');
-const authServiceInterface = require('../../../application/services/authService');
+const authServiceImpl = require('../../services/authServiceImpl');
+const authServiceInterface = require('../../../application/services/nodeMailerServiceInterface');
 
 const authMiddleware = (req, res, next) => {
   // Get token from header

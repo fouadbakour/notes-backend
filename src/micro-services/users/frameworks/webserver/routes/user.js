@@ -1,9 +1,12 @@
 const { userController } = require('../../../adapters/controllers/userController');
 const { userDbRepositoryInterface } = require('../../../application/repositories/userDbRepository');
 const { userDbRepositoryMongoDBImpl } = require('../../database/userRepositoryMongoDB');
-const { authServiceInterface } = require('../../../application/services/authService');
-const { authServiceImpl } = require('../../services/authService');
+const { authServiceInterface } = require('../../../application/services/authServiceInterface');
+const { authServiceImpl } = require('../../services/authServiceImpl');
 const { authMiddleware } = require('../middlewares/authMiddleware');
+
+const { nodeMailerServiceInterface } = require('../../../application/services/nodeMailerServiceInterface');
+const { nodeMailerServiceImpl } = require('../../services/nodeMailerServiceImpl');
 
 const userRouter = (express) => {
   const router = express.Router();
@@ -14,6 +17,8 @@ const userRouter = (express) => {
     userDbRepositoryMongoDBImpl,
     authServiceInterface,
     authServiceImpl,
+    nodeMailerServiceInterface,
+    nodeMailerServiceImpl,
   );
 
   // GET endpoints
