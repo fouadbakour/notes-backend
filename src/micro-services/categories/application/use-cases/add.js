@@ -3,16 +3,19 @@ const { category } = require('../../entity/categoryEntity');
 const addCategory = (
   title,
   createdAt,
-  createdBy,
+  authorization,
   categoriesRepository,
+  authService,
 ) => {
   // Validate incoming values
   if (!title) {
     throw new Error('title field cannot be empty');
   }
+  // get the user ID from the access token
+  const userId = authService.getUserId(authorization);
 
   // Prepare new record object based on our entity
-  const newCategory = category(title, createdAt, createdBy);
+  const newCategory = category(title, createdAt, userId);
 
   // Validate if the record is already exits in our DB, step 1
   return categoriesRepository

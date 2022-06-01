@@ -2,6 +2,8 @@ const { categoriesController } = require('../../../adapters/controllers/categori
 const { categoriesDbRepositoryInterface } = require('../../../application/repositories/categoriesDbRepositoryInterface');
 const { categoriesDbRepositoryImpl } = require('../../database/categoriesDbRepositoryImpl');
 const { authMiddleware } = require('../middlewares/authMiddleware');
+const { authServiceImpl } = require('../../services/authServiceImpl');
+const { authServiceInterface } = require('../../../application/services/authServiceInterface');
 
 const categoriesRouter = (express) => {
   const router = express.Router();
@@ -10,6 +12,8 @@ const categoriesRouter = (express) => {
   const controller = categoriesController(
     categoriesDbRepositoryInterface,
     categoriesDbRepositoryImpl,
+    authServiceInterface,
+    authServiceImpl,
   );
 
   // GET endpoints
@@ -17,13 +21,13 @@ const categoriesRouter = (express) => {
   router.route('/').get(authMiddleware, controller.fetchCategoriesByProperty);
 
   // POST endpoints
-  router.route('/').post(controller.addNewCategory);
+  router.route('/').post(authMiddleware, controller.addNewCategory);
 
   // DELETE endpoints
-  router.route('/:id').delete(controller.deleteCategoryById);
+  router.route('/:id').delete(authMiddleware, controller.deleteCategoryById);
 
   // PUT endpoints
-  router.route('/:id').delete(controller.updateCategory);
+  router.route('/:id').delete(authMiddleware, controller.updateCategory);
 
   return router;
 };

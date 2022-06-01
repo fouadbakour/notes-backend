@@ -1,5 +1,5 @@
-const { userRouter } = require('./user');
-const { authRouter } = require('./auth');
+const { userRouter } = require('./userRouter');
+const { authRouter } = require('./authRouter');
 
 const routes = (app, express) => {
   app.use('/api/v1/users', userRouter(express));

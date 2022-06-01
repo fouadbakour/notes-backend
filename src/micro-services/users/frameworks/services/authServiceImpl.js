@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { JWT_SECRET } = require('../../config/config');
+const { JWT_SECRET, JWT_LIFESPAN } = require('../../config/config');
 
 const authServiceImpl = () => {
   const encryptPassword = (password) => {
@@ -13,7 +13,7 @@ const authServiceImpl = () => {
   const verify = (token) => jwt.verify(token, JWT_SECRET);
 
   const generateToken = (payload) => jwt.sign(payload, JWT_SECRET, {
-    expiresIn: 360000,
+    expiresIn: JWT_LIFESPAN,
   });
 
   return {
