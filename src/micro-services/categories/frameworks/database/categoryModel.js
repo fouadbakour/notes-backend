@@ -9,7 +9,6 @@ const CategorySchema = new Schema({
   title: {
     type: String,
     required: true,
-    unique: true,
   },
   createdAt: Date,
   createdBy: {

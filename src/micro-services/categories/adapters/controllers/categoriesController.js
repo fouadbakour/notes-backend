@@ -18,6 +18,12 @@ const categoriesController = (
     const params = {};
     const response = {};
 
+    // get access token
+    const { authorization } = req.headers;
+
+    // get the user ID from the access token
+    const userId = authService.getUserId(authorization);
+
     // Dynamically created query params based on endpoint params
     // eslint-disable-next-line no-restricted-syntax
     for (const key in req.query) {
@@ -28,11 +34,9 @@ const categoriesController = (
     // predefined query params (apart from dynamically) for pagination
     params.page = params.page ? parseInt(params.page, 10) : 1;
     params.perPage = params.perPage ? parseInt(params.perPage, 10) : 10;
+    params.createdBy = userId;
 
-    // get access token
-    const { authorization } = req.headers;
-
-    findByProperty(params, dbRepository, authorization, authService)
+    findByProperty(params, dbRepository)
       .then((records) => {
         response.categories = records;
         return countAll(params, dbRepository);

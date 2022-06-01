@@ -1,6 +1,6 @@
 const findByProperty = (params, repository) => repository.findByProperty(params)
   .then((array) => {
-    // Map users
+    // Map
     const mapped = array.map((record) => {
       const payload = {
         id: record.id,
