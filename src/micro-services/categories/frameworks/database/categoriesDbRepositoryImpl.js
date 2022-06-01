@@ -9,7 +9,7 @@ function omit(obj, ...props) {
 
 const categoriesDbRepositoryImpl = () => {
   // mongoose query function to find a record by a givin property
-  const findByProperty = (params, createdBy) => CategoryModel.find(omit(params, 'page', 'perPage'))
+  const findByProperty = (params) => CategoryModel.find(omit(params, 'page', 'perPage'))
     .skip(params.perPage * params.page - params.perPage)
     .limit(params.perPage);
 

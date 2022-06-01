@@ -4,7 +4,7 @@ const addCategory = (
   titleToAdd,
   createdAt,
   authorization,
-  categoriesRepository,
+  repository,
   authService,
 ) => {
   // Validate incoming values
@@ -17,7 +17,7 @@ const addCategory = (
 
   // Validate if the record is already exits in our DB
   // Query to find records that contains same title created by the same user
-  return categoriesRepository
+  return repository
     .findByProperty({ title: titleToAdd, createdBy: userId })
     .then((matchingRecord) => {
       if (matchingRecord.length) {
@@ -28,7 +28,7 @@ const addCategory = (
       const newCategory = category(titleToAdd, createdAt, userId);
 
       // If all the above are fine, query our repository to add it to our DB
-      return categoriesRepository.add(newCategory).then((addedCategory) => {
+      return repository.add(newCategory).then((addedCategory) => {
         // Map
         const mapped = {
           id: addedCategory.id,
