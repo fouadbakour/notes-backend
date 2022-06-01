@@ -3,17 +3,13 @@ const { category } = require('../../entity/categoryEntity');
 const addCategory = (
   titleToAdd,
   createdAt,
-  authorization,
   repository,
-  authService,
+  userId,
 ) => {
   // Validate incoming values
   if (!titleToAdd) {
     throw new Error('title field cannot be empty');
   }
-
-  // get the user ID from the access token
-  const userId = authService.getUserId(authorization);
 
   // Validate if the record is already exits in our DB
   // Query to find records that contains same title created by the same user

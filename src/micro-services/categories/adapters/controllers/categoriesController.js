@@ -59,7 +59,13 @@ const categoriesController = (
 
   const deleteCategoryById = (req, res, next) => {
     const { id } = req.params;
-    deleteById(id, dbRepository)
+    // get access token
+    const { authorization } = req.headers;
+
+    // get the user ID from the access token
+    const userId = authService.getUserId(authorization);
+
+    deleteById(id, dbRepository, userId)
       .then((record) => res.json(record))
       .catch((error) => next(error));
   };
@@ -80,12 +86,15 @@ const categoriesController = (
 
     // get access token
     const { authorization } = req.headers;
+
+    // get the user ID from the access token
+    const userId = authService.getUserId(authorization);
+
     addCategory(
       title,
       createdAt,
-      authorization,
       dbRepository,
-      authService,
+      userId,
     )
       .then((record) => res.json(record))
       .catch((error) => next(error));
