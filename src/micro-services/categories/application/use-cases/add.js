@@ -16,6 +16,7 @@ const addCategory = (
   const userId = authService.getUserId(authorization);
 
   // Validate if the record is already exits in our DB
+  // Query to find records that contains same title created by the same user
   return categoriesRepository
     .findByProperty({ title: titleToAdd, createdBy: userId })
     .then((matchingRecord) => {
