@@ -1,30 +1,30 @@
 const { category } = require('../../entity/categoryEntity');
 
 const addCategory = (
-  title,
+  titleToAdd,
   createdAt,
   authorization,
   categoriesRepository,
   authService,
 ) => {
   // Validate incoming values
-  if (!title) {
+  if (!titleToAdd) {
     throw new Error('title field cannot be empty');
   }
 
   // get the user ID from the access token
   const userId = authService.getUserId(authorization);
 
-  // Validate if the record is already exits in our DB, step 1
+  // Validate if the record is already exits in our DB
   return categoriesRepository
-    .findByProperty({ title, createdBy: userId })
+    .findByProperty({ title: titleToAdd, createdBy: userId })
     .then((matchingRecord) => {
       if (matchingRecord.length) {
-        throw new Error(`Category with title: ${title} already exists`);
+        throw new Error(`Category with title: ${titleToAdd} already exists`);
       }
 
       // Prepare new record object based on our entity
-      const newCategory = category(title, createdAt, userId);
+      const newCategory = category(titleToAdd, createdAt, userId);
 
       // If all the above are fine, query our repository to add it to our DB
       return categoriesRepository.add(newCategory).then((addedCategory) => {
