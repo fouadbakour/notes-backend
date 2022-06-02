@@ -52,7 +52,14 @@ const categoriesController = (
 
   const fetchCategoryById = (req, res, next) => {
     const { id } = req.params;
-    findById(id, dbRepository)
+
+    // get access token
+    const { authorization } = req.headers;
+
+    // get the user ID from the access token
+    const userId = authService.getUserId(authorization);
+
+    findById(id, userId, dbRepository)
       .then((record) => res.json(record))
       .catch((error) => next(error));
   };

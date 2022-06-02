@@ -4,6 +4,8 @@ const { notesDbRepositoryImpl } = require('../../database/notesDbRepositoryImpl'
 const { authMiddleware } = require('../middlewares/authMiddleware');
 const { authServiceImpl } = require('../../services/authServiceImpl');
 const { authServiceInterface } = require('../../../application/services/authServiceInterface');
+const { categoriesServiceInterImpl } = require('../../services/categoriesServiceInterImpl');
+const { categoriesServiceInterface } = require('../../../application/services/categoriesServiceInterface');
 
 const notesRouter = (express) => {
   const router = express.Router();
@@ -14,6 +16,8 @@ const notesRouter = (express) => {
     notesDbRepositoryImpl,
     authServiceInterface,
     authServiceImpl,
+    categoriesServiceInterface,
+    categoriesServiceInterImpl,
   );
 
   // GET endpoints

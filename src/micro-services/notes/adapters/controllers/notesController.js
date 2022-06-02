@@ -10,9 +10,12 @@ const notesController = (
   dbRepositoryImpl,
   authServiceInterface,
   authServiceImpl,
+  categoriesServiceInterface,
+  categoriesServiceImpl,
 ) => {
   const dbRepository = dbRepositoryInterface(dbRepositoryImpl());
   const authService = authServiceInterface(authServiceImpl());
+  const categoriesService = categoriesServiceInterface(categoriesServiceImpl());
 
   const fetchNotesByProperty = (req, res, next) => {
     const params = {};
@@ -101,6 +104,8 @@ const notesController = (
       tags,
       userId,
       dbRepository,
+      categoriesService,
+      authorization,
     )
       .then((record) => res.json(record))
       .catch((error) => next(error));
