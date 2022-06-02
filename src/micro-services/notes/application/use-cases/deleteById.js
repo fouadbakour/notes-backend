@@ -6,6 +6,8 @@ const deleteById = (id, repository, userId) => repository
       return repository.deleteById(id).then(() => ({ message: 'deleted' }));
     }
     throw new Error('You are not allowed to delete this record');
+  }).catch(() => {
+    throw new Error('Note not found');
   });
 module.exports = {
   deleteById,
