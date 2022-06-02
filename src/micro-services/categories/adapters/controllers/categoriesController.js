@@ -73,7 +73,14 @@ const categoriesController = (
   const updateCategory = (req, res, next) => {
     const { title } = req.body;
     const { id } = req.params;
-    updateById(id, title, dbRepository)
+
+    // get access token
+    const { authorization } = req.headers;
+
+    // get the user ID from the access token
+    const userId = authService.getUserId(authorization);
+
+    updateById(id, dbRepository, userId, title)
       .then((record) => res.json(record))
       .catch((error) => next(error));
   };

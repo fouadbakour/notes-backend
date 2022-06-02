@@ -27,7 +27,7 @@ const categoriesRouter = (express) => {
   router.route('/:id').delete(authMiddleware, controller.deleteCategoryById);
 
   // PUT endpoints
-  router.route('/:id').delete(authMiddleware, controller.updateCategory);
+  router.route('/:id').put(authMiddleware, controller.updateCategory);
 
   return router;
 };
