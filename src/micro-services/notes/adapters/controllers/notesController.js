@@ -12,10 +12,13 @@ const notesController = (
   authServiceImpl,
   categoriesServiceInterface,
   categoriesServiceImpl,
+  utilsInterface,
+  utilsImpl,
 ) => {
   const dbRepository = dbRepositoryInterface(dbRepositoryImpl());
   const authService = authServiceInterface(authServiceImpl());
   const categoriesService = categoriesServiceInterface(categoriesServiceImpl());
+  const utils = utilsInterface(utilsImpl());
 
   const fetchNotesByProperty = (req, res, next) => {
     const params = {};
@@ -89,7 +92,17 @@ const notesController = (
     // get the user ID from the access token
     const userId = authService.getUserId(authorization);
 
-    updateById(id, dbRepository, userId, title, category, tags)
+    updateById(
+      id,
+      dbRepository,
+      userId,
+      title,
+      category,
+      tags,
+      categoriesService,
+      authorization,
+      utils,
+    )
       .then((record) => res.json(record))
       .catch((error) => next(error));
   };
@@ -112,6 +125,7 @@ const notesController = (
       dbRepository,
       categoriesService,
       authorization,
+      utils,
     )
       .then((record) => res.json(record))
       .catch((error) => next(error));

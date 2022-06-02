@@ -6,6 +6,8 @@ const { authServiceImpl } = require('../../services/authServiceImpl');
 const { authServiceInterface } = require('../../../application/services/authServiceInterface');
 const { categoriesServiceInterImpl } = require('../../services/categoriesServiceInterImpl');
 const { categoriesServiceInterface } = require('../../../application/services/categoriesServiceInterface');
+const { utilsImpl } = require('../../services/utilsImpl');
+const { utilsInterface } = require('../../../application/services/utilsInterface');
 
 const notesRouter = (express) => {
   const router = express.Router();
@@ -18,6 +20,8 @@ const notesRouter = (express) => {
     authServiceImpl,
     categoriesServiceInterface,
     categoriesServiceInterImpl,
+    utilsInterface,
+    utilsImpl,
   );
 
   // GET endpoints

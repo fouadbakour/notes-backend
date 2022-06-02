@@ -12,7 +12,7 @@ const notesDbRepositoryImpl = () => {
   const findByProperty = (params) => NoteModel.find(omit(params, 'page', 'perPage'))
     .skip(params.perPage * params.page - params.perPage)
     .limit(params.perPage)
-    .sort({ updatedAt: 'descending' });
+    .sort({ updatedAt: params.sort || 'descending' });
 
   // mongoose query function to count all records
   const countAll = (params) => NoteModel.countDocuments(omit(params, 'page', 'perPage'));

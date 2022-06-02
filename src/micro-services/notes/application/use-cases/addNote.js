@@ -35,10 +35,18 @@ const addNote = (
   repository,
   categoriesService,
   authorization,
+  utils,
 ) => {
   // Validate incoming values
   if (!title) {
     throw new Error('title field cannot be empty');
+  }
+
+  // Validate incoming values
+  if (tags) {
+    if (utils.containsDuplicates(tags) === true) {
+      throw new Error('Duplicate tags are not allowed.');
+    }
   }
 
   // Check if we have a category
