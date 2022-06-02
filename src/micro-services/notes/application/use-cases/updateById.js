@@ -18,6 +18,8 @@ const updateById = (
       ).then(() => ({ message: 'updated' }));
     }
     throw new Error('You are not allowed to edit this record');
+  }).catch(() => {
+    throw new Error('Note not found');
   });
 module.exports = {
   updateById,
