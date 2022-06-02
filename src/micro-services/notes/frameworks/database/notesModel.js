@@ -1,14 +1,24 @@
 const mongoose = require('mongoose');
 
 // Define the model's collection name
-const collectionName = 'categories';
+const collectionName = 'notes';
 
 // eslint-disable-next-line prefer-destructuring
 const Schema = mongoose.Schema;
-const CategorySchema = new Schema({
+const NoteSchema = new Schema({
   title: {
     type: String,
     required: true,
+  },
+  category: {
+    type: String,
+    required: false,
+  },
+  tags: {
+    type: [{
+      type: String,
+    }],
+    required: false,
   },
   createdBy: {
     type: String,
@@ -18,15 +28,15 @@ const CategorySchema = new Schema({
   timestamps: true,
 });
 
-CategorySchema.index({ role: 1 });
+NoteSchema.index({ role: 1 });
 
-const CategoryModel = mongoose.model(collectionName, CategorySchema);
+const NoteModel = mongoose.model(collectionName, NoteSchema);
 
-CategoryModel.ensureIndexes((err) => {
+NoteModel.ensureIndexes((err) => {
   if (err) {
     return err;
   }
   return true;
 });
 
-module.exports = CategoryModel;
+module.exports = NoteModel;

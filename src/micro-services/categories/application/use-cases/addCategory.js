@@ -28,7 +28,6 @@ const addCategory = (
         const mapped = {
           id: addedCategory.id,
           title: addedCategory.title,
-          createdBy: addedCategory.createdBy,
         };
         return mapped;
       }).catch((err) => {

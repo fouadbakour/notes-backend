@@ -1,20 +1,20 @@
-const { addCategory } = require('../../application/use-cases/addCategory');
+const { addNote } = require('../../application/use-cases/addNote');
 const { findByProperty } = require('../../application/use-cases/findByProperty');
 const { countAll } = require('../../application/use-cases/countAll');
 const { findById } = require('../../application/use-cases/findById');
 const { deleteById } = require('../../application/use-cases/deleteById');
 const { updateById } = require('../../application/use-cases/updateById');
 
-const categoriesController = (
-  categoriesDbRepositoryInterface,
-  categoriesDbRepositoryImpl,
+const notesController = (
+  dbRepositoryInterface,
+  dbRepositoryImpl,
   authServiceInterface,
   authServiceImpl,
 ) => {
-  const dbRepository = categoriesDbRepositoryInterface(categoriesDbRepositoryImpl());
+  const dbRepository = dbRepositoryInterface(dbRepositoryImpl());
   const authService = authServiceInterface(authServiceImpl());
 
-  const fetchCategoriesByProperty = (req, res, next) => {
+  const fetchNotesByProperty = (req, res, next) => {
     const params = {};
     const response = {};
 
@@ -38,7 +38,7 @@ const categoriesController = (
 
     findByProperty(params, dbRepository)
       .then((records) => {
-        response.categories = records;
+        response.notes = records;
         return countAll(params, dbRepository);
       })
       .then((totalItems) => {
@@ -50,14 +50,14 @@ const categoriesController = (
       .catch((error) => next(error));
   };
 
-  const fetchCategoryById = (req, res, next) => {
+  const fetchNoteById = (req, res, next) => {
     const { id } = req.params;
     findById(id, dbRepository)
       .then((record) => res.json(record))
       .catch((error) => next(error));
   };
 
-  const deleteCategoryById = (req, res, next) => {
+  const deleteNoteById = (req, res, next) => {
     const { id } = req.params;
     // get access token
     const { authorization } = req.headers;
@@ -70,8 +70,8 @@ const categoriesController = (
       .catch((error) => next(error));
   };
 
-  const updateCategory = (req, res, next) => {
-    const { title } = req.body;
+  const updateNoteById = (req, res, next) => {
+    const { title, category, tags } = req.body;
     const { id } = req.params;
 
     // get access token
@@ -80,14 +80,14 @@ const categoriesController = (
     // get the user ID from the access token
     const userId = authService.getUserId(authorization);
 
-    updateById(id, dbRepository, userId, title)
+    updateById(id, dbRepository, userId, title, category, tags)
       .then((record) => res.json(record))
       .catch((error) => next(error));
   };
 
-  const addNewCategory = (req, res, next) => {
+  const addNewNote = (req, res, next) => {
     // Get json body values
-    const { title } = req.body;
+    const { title, category, tags } = req.body;
 
     // get access token
     const { authorization } = req.headers;
@@ -95,24 +95,26 @@ const categoriesController = (
     // get the user ID from the access token
     const userId = authService.getUserId(authorization);
 
-    addCategory(
+    addNote(
       title,
-      dbRepository,
+      category,
+      tags,
       userId,
+      dbRepository,
     )
       .then((record) => res.json(record))
       .catch((error) => next(error));
   };
 
   return {
-    fetchCategoriesByProperty,
-    fetchCategoryById,
-    addNewCategory,
-    deleteCategoryById,
-    updateCategory,
+    fetchNotesByProperty,
+    fetchNoteById,
+    addNewNote,
+    deleteNoteById,
+    updateNoteById,
   };
 };
 
 module.exports = {
-  categoriesController,
+  notesController,
 };

@@ -1,4 +1,4 @@
-const CategoryModel = require('./categoryModel');
+const NoteModel = require('./notesModel');
 
 // move it to a proper place
 function omit(obj, ...props) {
@@ -7,29 +7,36 @@ function omit(obj, ...props) {
   return result;
 }
 
-const categoriesDbRepositoryImpl = () => {
+const notesDbRepositoryImpl = () => {
   // mongoose query function to find a record by a givin property
-  const findByProperty = (params) => CategoryModel.find(omit(params, 'page', 'perPage'))
+  const findByProperty = (params) => NoteModel.find(omit(params, 'page', 'perPage'))
     .skip(params.perPage * params.page - params.perPage)
     .limit(params.perPage)
     .sort({ updatedAt: 'descending' });
 
   // mongoose query function to count all records
-  const countAll = (params) => CategoryModel.countDocuments(omit(params, 'page', 'perPage'));
+  const countAll = (params) => NoteModel.countDocuments(omit(params, 'page', 'perPage'));
 
   // mongoose query function to find record by document ID
-  const findById = (id) => CategoryModel.findById(id);
+  const findById = (id) => NoteModel.findById(id);
 
   // mongoose query function to find record by document ID and remove it
-  const deleteById = (id) => CategoryModel.findByIdAndRemove(id);
+  const deleteById = (id) => NoteModel.findByIdAndRemove(id);
 
   // mongoose query function to edit a record by document ID
-  const updateById = (id, newTitle) => CategoryModel.findByIdAndUpdate(id, { title: newTitle });
+  const updateById = (
+    id,
+    title,
+    category,
+    tags,
+  ) => NoteModel.findByIdAndUpdate(id, { title, category, tags });
 
   // mongoose query function to add new record
   const add = (entity) => {
-    const newRecord = new CategoryModel({
+    const newRecord = new NoteModel({
       title: entity.getTitle(),
+      category: entity.getCategory(),
+      tags: entity.getTags(),
       createdBy: entity.getCreatedBy(),
     });
     return newRecord.save();
@@ -46,5 +53,5 @@ const categoriesDbRepositoryImpl = () => {
 };
 
 module.exports = {
-  categoriesDbRepositoryImpl,
+  notesDbRepositoryImpl,
 };

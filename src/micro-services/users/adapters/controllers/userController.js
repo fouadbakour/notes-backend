@@ -1,4 +1,4 @@
-const { addUser } = require('../../application/use-cases/user/add');
+const { addUser } = require('../../application/use-cases/user/addUser');
 const { findByProperty } = require('../../application/use-cases/user/findByProperty');
 const { countAll } = require('../../application/use-cases/user/countAll');
 const { findById } = require('../../application/use-cases/user/findById');
