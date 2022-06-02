@@ -87,9 +87,7 @@ const categoriesController = (
 
   const addNewCategory = (req, res, next) => {
     // Get json body values
-    const {
-      title, createdAt,
-    } = req.body;
+    const { title } = req.body;
 
     // get access token
     const { authorization } = req.headers;
@@ -99,7 +97,6 @@ const categoriesController = (
 
     addCategory(
       title,
-      createdAt,
       dbRepository,
       userId,
     )

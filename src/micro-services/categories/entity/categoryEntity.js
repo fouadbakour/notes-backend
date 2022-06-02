@@ -1,6 +1,5 @@
-const category = (title, createdAt, createdBy) => ({
+const category = (title, createdBy) => ({
   getTitle: () => title,
-  getCreatedAt: () => createdAt,
   getCreatedBy: () => createdBy,
 });
 

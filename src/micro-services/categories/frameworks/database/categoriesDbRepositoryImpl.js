@@ -29,7 +29,6 @@ const categoriesDbRepositoryImpl = () => {
   const add = (entity) => {
     const newRecord = new CategoryModel({
       title: entity.getTitle(),
-      createdAt: new Date(),
       createdBy: entity.getCreatedBy(),
     });
     return newRecord.save();

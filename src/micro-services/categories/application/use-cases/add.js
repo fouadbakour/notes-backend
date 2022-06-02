@@ -2,7 +2,6 @@ const { category } = require('../../entity/categoryEntity');
 
 const addCategory = (
   titleToAdd,
-  createdAt,
   repository,
   userId,
 ) => {
@@ -21,7 +20,7 @@ const addCategory = (
       }
 
       // Prepare new record object based on our entity
-      const newCategory = category(titleToAdd, createdAt, userId);
+      const newCategory = category(titleToAdd, userId);
 
       // If all the above are fine, query our repository to add it to our DB
       return repository.add(newCategory).then((addedCategory) => {

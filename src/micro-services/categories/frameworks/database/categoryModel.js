@@ -10,11 +10,12 @@ const CategorySchema = new Schema({
     type: String,
     required: true,
   },
-  createdAt: Date,
   createdBy: {
     type: String,
     required: true,
   },
+}, {
+  timestamps: true,
 });
 
 CategorySchema.index({ role: 1 });

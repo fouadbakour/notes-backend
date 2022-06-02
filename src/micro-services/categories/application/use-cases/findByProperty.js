@@ -6,6 +6,7 @@ const findByProperty = (params, repository) => repository.findByProperty(params)
         id: record.id,
         title: record.title,
         createdAt: record.createdAt,
+        updatedAt: record.updatedAt,
       };
       return payload;
     });
