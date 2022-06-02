@@ -18,9 +18,13 @@ const prepareAndUpdate = (
         tags || matchingRecord.tags,
       ).then(() => ({ message: 'updated' }));
     }
-    throw new Error('You are not allowed to edit this record');
+    const error = new Error('You are not allowed to edit this record');
+    error.statusCode = 403;
+    throw error;
   }).catch(() => {
-    throw new Error('Note not found');
+    const error = new Error('Note not found');
+    error.statusCode = 404;
+    throw error;
   });
 
 // Public function
@@ -37,12 +41,16 @@ const updateById = (
 ) => {
   // Validate incoming values
   if (!title) {
-    throw new Error('title field cannot be empty');
+    const error = new Error('title field cannot be empty');
+    error.statusCode = 400;
+    throw error;
   }
   // Validate incoming values
   if (tags) {
     if (utils.containsDuplicates(tags) === true) {
-      throw new Error('Duplicate tags are not allowed.');
+      const error = new Error('Duplicate tags are not allowed.');
+      error.statusCode = 400;
+      throw error;
     }
   }
   // Check if we have a category
@@ -59,7 +67,9 @@ const updateById = (
         tags,
       ))
       .catch((err) => {
-        throw new Error(err.message);
+        const error = new Error(err.message);
+        error.statusCode = 400;
+        throw error;
       });
   }
   return prepareAndUpdate(

@@ -7,7 +7,9 @@ const addCategory = (
 ) => {
   // Validate incoming values
   if (!titleToAdd) {
-    throw new Error('title field cannot be empty');
+    const error = new Error('title field cannot be empty');
+    error.statusCode = 400;
+    throw error;
   }
 
   // Validate if the record is already exits in our DB
@@ -16,7 +18,9 @@ const addCategory = (
     .findByProperty({ title: titleToAdd, createdBy: userId })
     .then((matchingRecord) => {
       if (matchingRecord.length) {
-        throw new Error(`Category with title: ${titleToAdd} already exists`);
+        const error = new Error(`Category with title: ${titleToAdd} already exists`);
+        error.statusCode = 403;
+        throw error;
       }
 
       // Prepare new record object based on our entity
@@ -31,7 +35,9 @@ const addCategory = (
         };
         return mapped;
       }).catch((err) => {
-        throw new Error(err.message);
+        const error = new Error(err.message);
+        error.statusCode = 400;
+        throw error;
       });
     });
 };

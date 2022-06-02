@@ -6,13 +6,17 @@ const updateById = (id, repository, userId, titleToChange) => repository
       // same new title are are trying to add, if we found, throw error.
       return repository.findByProperty({ title: titleToChange }).then((matchingTitleRecord) => {
         if (matchingTitleRecord.length) {
-          throw new Error(`Category with title: ${titleToChange} already exists`);
+          const error = new Error(`Category with title: ${titleToChange} already exists`);
+          error.statusCode = 403;
+          throw error;
         }
         // Perform update!
         return repository.updateById(id, titleToChange).then(() => ({ message: 'updated' }));
       });
     }
-    throw new Error('You are not allowed to edit this record');
+    const error = new Error('You are not allowed to edit this record');
+    error.statusCode = 403;
+    throw error;
   });
 module.exports = {
   updateById,

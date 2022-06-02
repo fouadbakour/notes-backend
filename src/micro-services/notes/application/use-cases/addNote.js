@@ -22,7 +22,9 @@ const prepareAndAdd = (
     };
     return mapped;
   }).catch((err) => {
-    throw new Error(err.message);
+    const error = new Error(err.message);
+    error.statusCode = 400;
+    throw error;
   });
 };
 
@@ -39,13 +41,17 @@ const addNote = (
 ) => {
   // Validate incoming values
   if (!title) {
-    throw new Error('title field cannot be empty');
+    const error = new Error('title field cannot be empty');
+    error.statusCode = 400;
+    throw error;
   }
 
   // Validate incoming values
   if (tags) {
     if (utils.containsDuplicates(tags) === true) {
-      throw new Error('Duplicate tags are not allowed.');
+      const error = new Error('Duplicate tags are not allowed.');
+      error.statusCode = 400;
+      throw error;
     }
   }
 
@@ -62,7 +68,9 @@ const addNote = (
         repository,
       ))
       .catch((err) => {
-        throw new Error(err.message);
+        const error = new Error(err.message);
+        error.statusCode = 404;
+        throw error;
       });
   }
   return prepareAndAdd(

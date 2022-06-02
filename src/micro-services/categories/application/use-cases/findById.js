@@ -1,7 +1,9 @@
 const findById = (id, userId, repository) => repository.findById(id).then((record) => {
   // Check if its my category
   if (record.createdBy !== userId) {
-    throw new Error('Category not found');
+    const error = new Error('Category not found');
+    error.statusCode = 404;
+    throw error;
   }
   // Map
   const payload = {
@@ -12,7 +14,9 @@ const findById = (id, userId, repository) => repository.findById(id).then((recor
   };
   return payload;
 }).catch(() => {
-  throw new Error('Category not found');
+  const error = new Error('Category not found');
+  error.statusCode = 404;
+  throw error;
 });
 module.exports = {
   findById,

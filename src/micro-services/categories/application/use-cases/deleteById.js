@@ -5,7 +5,9 @@ const deleteById = (id, repository, userId) => repository
       // We found the created record by the same user, delete
       return repository.deleteById(id).then(() => ({ message: 'deleted' }));
     }
-    throw new Error('You are not allowed to delete this record');
+    const error = new Error('You are not allowed to delete this record');
+    error.statusCode = 403;
+    throw error;
   });
 module.exports = {
   deleteById,
