@@ -8,11 +8,22 @@
     "wip": "git add . && git commit -m \"WIP\"",
     "lint": "eslint . --fix",
     "dev": "concurrently \"npm run run-gateway\" \"npm run run-categories\" \"npm run run-notes\" \"npm run run-users\"",
+    "setup": "concurrently \"npm run setup-gateway\" \"npm run setup-categories\" \"npm run setup-notes\" \"npm run setup-users\"",
+
+    "setup-gateway": "cd src && cd gateway && npm i",
+    "setup-categories": "cd src && cd micro-services && cd categories && npm i",
+    "setup-notes": "cd src && cd micro-services && cd notes && npm i",
+    "setup-users": "cd src && cd micro-services && cd users && npm i",
 
     "run-gateway": "cd src && cd gateway && npm run dev",
     "run-categories": "cd src && cd micro-services && cd categories && npm run dev",
     "run-notes": "cd src && cd micro-services && cd notes && npm run dev",
-    "run-users": "cd src && cd micro-services && cd users && npm run dev"
+    "run-users": "cd src && cd micro-services && cd users && npm run dev",
+
+    "deploy-gateway": "cd src && cd gateway && npm run deploy",
+    "deploy-categories": "cd src && cd micro-services && cd categories && npm run deploy",
+    "deploy-notes": "cd src && cd micro-services && cd notes && npm run deploy",
+    "deploy-users": "cd src && cd micro-services && cd users && npm run deploy"
   },
   "keywords": [
     "notes",

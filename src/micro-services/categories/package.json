@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "deploy": "heroku container:push web -a notes-categories-service && heroku container:release web -a notes-categories-service"
   },
   "keywords": [
     "categoires",
