@@ -8,7 +8,7 @@
     "wip": "git add . && git commit -m \"WIP\"",
     "lint": "eslint . --fix",
     "dev": "concurrently \"npm run run-gateway\" \"npm run run-categories\" \"npm run run-notes\" \"npm run run-users\"",
-    "setup": "npm run setup-gateway && npm run setup-categories && npm run setup-notes && npm run setup-users\"",
+    "setup": "npm run setup-gateway && npm run setup-categories && npm run setup-notes && npm run setup-users",
 
     "setup-gateway": "cd src && cd gateway && npm i",
     "setup-categories": "cd src && cd micro-services && cd categories && npm i",
