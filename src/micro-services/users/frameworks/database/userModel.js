@@ -18,15 +18,6 @@ const UserSchema = new Schema({
   createdAt: Date,
 });
 
-UserSchema.index({ role: 1 });
-
 const UserModel = mongoose.model(collectionName, UserSchema);
-
-UserModel.ensureIndexes((err) => {
-  if (err) {
-    return err;
-  }
-  return true;
-});
 
 module.exports = UserModel;

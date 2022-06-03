@@ -131,12 +131,41 @@ const notesController = (
       .catch((error) => next(error));
   };
 
+  const searchNotes = (req, res, next) => {
+    const response = {};
+
+    // Get json body values
+    const { searchPhrase } = req.body;
+
+    // get access token
+    const { authorization } = req.headers;
+
+    // get the user ID from the access token
+    const userId = authService.getUserId(authorization);
+
+    // build search query
+    const query = {
+      createdBy: { $eq: `${userId}` },
+      $or: [
+        { title: { $regex: `${searchPhrase}`, $options: 'i' } },
+        { tags: { $regex: `${searchPhrase}`, $options: 'i' } },
+      ],
+    };
+    findByProperty(query, dbRepository)
+      .then((records) => {
+        response.notes = records;
+        return res.json(response);
+      })
+      .catch((error) => next(error));
+  };
+
   return {
     fetchNotesByProperty,
     fetchNoteById,
     addNewNote,
     deleteNoteById,
     updateNoteById,
+    searchNotes,
   };
 };
 

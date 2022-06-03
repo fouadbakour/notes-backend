@@ -18,15 +18,6 @@ const CategorySchema = new Schema({
   timestamps: true,
 });
 
-CategorySchema.index({ role: 1 });
-
 const CategoryModel = mongoose.model(collectionName, CategorySchema);
-
-CategoryModel.ensureIndexes((err) => {
-  if (err) {
-    return err;
-  }
-  return true;
-});
 
 module.exports = CategoryModel;

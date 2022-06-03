@@ -30,6 +30,7 @@ const notesRouter = (express) => {
 
   // POST endpoints
   router.route('/').post(authMiddleware, controller.addNewNote);
+  router.route('/search').post(authMiddleware, controller.searchNotes);
 
   // DELETE endpoints
   router.route('/:id').delete(authMiddleware, controller.deleteNoteById);

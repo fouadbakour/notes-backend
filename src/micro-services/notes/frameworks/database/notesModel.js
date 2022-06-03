@@ -28,7 +28,7 @@ const NoteSchema = new Schema({
   timestamps: true,
 });
 
-NoteSchema.index({ role: 1 });
+NoteSchema.index({ title: 'text', tags: 'text', createdBy: 'text' });
 
 const NoteModel = mongoose.model(collectionName, NoteSchema);
 
