@@ -10,8 +10,6 @@ const authServiceImpl = () => {
 
   const compare = (password, hashedPassword) => bcrypt.compareSync(password, hashedPassword);
 
-  const verify = (token) => jwt.verify(token, JWT_SECRET);
-
   const generateToken = (payload) => jwt.sign(payload, JWT_SECRET, {
     expiresIn: JWT_LIFESPAN,
   });
@@ -19,7 +17,6 @@ const authServiceImpl = () => {
   return {
     encryptPassword,
     compare,
-    verify,
     generateToken,
   };
 };

@@ -13,15 +13,6 @@ const userDbRepositoryImpl = () => {
     .skip(params.perPage * params.page - params.perPage)
     .limit(params.perPage);
 
-  // mongoose query function to count all records
-  const countAll = (params) => UserModel.countDocuments(omit(params, 'page', 'perPage'));
-
-  // mongoose query function to find record by document ID
-  const findById = (id) => UserModel.findById(id).select('-password');
-
-  // mongoose query function to find record by document ID and remove it
-  const deleteById = (id) => UserModel.findByIdAndRemove(id);
-
   // mongoose query function to add new record
   const add = (entity) => {
     const newRecord = new UserModel({
@@ -34,10 +25,7 @@ const userDbRepositoryImpl = () => {
 
   return {
     findByProperty,
-    countAll,
-    findById,
     add,
-    deleteById,
   };
 };
 

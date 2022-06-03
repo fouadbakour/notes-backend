@@ -3,7 +3,6 @@ const { userDbRepositoryInterface } = require('../../../application/repositories
 const { userDbRepositoryImpl } = require('../../database/userDbRepositoryImpl');
 const { authServiceInterface } = require('../../../application/services/authServiceInterface');
 const { authServiceImpl } = require('../../services/authServiceImpl');
-const { authMiddleware } = require('../middlewares/authMiddleware');
 
 const { mailerServiceInterface } = require('../../../application/services/mailerServiceInterface');
 const { mailerServiceImpl } = require('../../services/mailerServiceImpl');
@@ -20,10 +19,6 @@ const userRouter = (express) => {
     mailerServiceInterface,
     mailerServiceImpl,
   );
-
-  // GET endpoints
-  router.route('/:id').get(authMiddleware, controller.fetchUserById);
-  router.route('/').get(authMiddleware, controller.fetchUsersByProperty);
 
   // POST endpoints
   router.route('/').post(controller.addNewUser);

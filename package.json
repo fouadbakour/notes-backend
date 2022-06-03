@@ -6,7 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "wip": "git add . && git commit -m \"WIP\"",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "dev": "concurrently \"npm run run-gateway\" \"npm run run-categories\" \"npm run run-notes\" \"npm run run-users\"",
+
+    "run-gateway": "cd src && cd gateway && npm run dev",
+    "run-categories": "cd src && cd micro-services && cd categories && npm run dev",
+    "run-notes": "cd src && cd micro-services && cd notes && npm run dev",
+    "run-users": "cd src && cd micro-services && cd users && npm run dev"
   },
   "keywords": [
     "notes",
@@ -22,5 +28,8 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.5.0"
+  },
+  "dependencies": {
+    "concurrently": "^7.2.1"
   }
 }
